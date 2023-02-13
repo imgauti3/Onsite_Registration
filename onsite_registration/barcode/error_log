@@ -1,0 +1,27 @@
+[11-Oct-2022 19:50:26 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home4/virtuizm/public_html/onsite_registration/barcode/generate.php on line 34
+[11-Oct-2022 19:50:33 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home4/virtuizm/public_html/onsite_registration/barcode/generate.php on line 34
+[05-Jan-2023 09:38:46 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:38:46 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 194
+[05-Jan-2023 09:39:50 UTC] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 194
+[05-Jan-2023 15:09:52 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:39:58 UTC] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 194
+[05-Jan-2023 09:42:51 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:42:51 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:42:51 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:42:51 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:42:51 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:43:00 UTC] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:43:41 UTC] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:44:35 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:44:35 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:44:34 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:45:52 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
+[05-Jan-2023 09:46:12 UTC] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 194
+[05-Jan-2023 09:53:32 UTC] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home4/virtuizm/public_html/onsite_registration/db.php on line 14
