@@ -118,27 +118,42 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
                                   <?php echo $_SESSION['errorMsg']; unset($_SESSION['errorMsg']);?> 
                                 </div>
 						   <?php }  ?>
+
+						   <div class="form-group">
+								<div class="row">
+									<div class="col-md-4"></div>
+									<div class="col-md-2 text-center">
+										<input type="radio" name="mode" class="mode" value="Manual" checked><span style="font-size: 22px;font-weight: bold;color: white;"> Manual</span>
+									</div>
+									<div class="col-md-2 text-center">
+										<input type="radio" name="mode" class="mode" value="Auto"><span style="font-size: 22px;font-weight: bold;color: white;"> Auto</span>
+									</div>
+									<div class="col-md-4"></div>
+								</div>
+							</div>
 						   
 							<div class="row">
-								<div class="col-12 col-md-12 col-lg-3"></div>
-								<div class="col-12 col-md-12 col-lg-6">
+							<div class="col-12 col-md-12 col-lg-3"></div>
+								<div class="col-12 col-md-12 col-lg-6 manual_div" >
 									<!--<input type="button" class="btn btn-primary" value="Selected Print">-->
 									<div class="form-group">
 										<label>Scan the QR Code </label>
+										<div style="position: relative;">
 										<input type="text" class="form-control" id="search" name="search" placeholder="Search...." required="">
+										<div style="position: absolute;right: 5px;top: 5px;" id="submitBtn"></div>
+										</div>
+										<div class="datarowcls" style="display:none;background: white;">
+											<div class="regData">
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="col-12 col-md-12 col-lg-2"></div>
-								<div class="col-12 col-md-12 col-lg-1">
-									<div class="form-group">
-										<label>Mode </label>
-										<select class="form-control" id="mode" name="mode" required="">
-											<option value="" disabled="" selected="">--Select--</option>
-											<option value="Manual">Manual</option>
-											<option value="Auto">Auto</option>
-    									</select>
+								</div>							
+								<div class="col-12 col-md-12 col-lg-6 auto_div" style="display: none;" >
+									<!--<input type="button" class="btn btn-primary" value="Selected Print">-->
+									<div class="row">
+										<video id="preview"></video>
 									</div>
-								</div>
+								</div>							
 							</div>
 							
 					<!--<div class="row">-->
@@ -168,34 +183,26 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 					<!--	</div>			-->
 					<!--</div>-->
 				
-				
-				<div class="row datarowcls" style="display:none">
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-body">
-									<div class="table-responsive">
-										<table class="datatable table table-hover table-center mb-0" >
-											<thead>
-												<tr>
-													<th>Sno</th>
-													<th>Actions</th>
-													<th>Unique ID</th>
-													<th>Category</th>
-													<th>Full Name</th>
-													<!--<th>Workshop</th>-->
-													<th>Ref No.</th>
-													<th>Mobile No.</th>
-												</tr>
-											</thead>
-											<tbody class="regData">
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>			
+					<?php
+			
+			$print=$db->getRows('badge_print_setup',array());
+			
+			echo "<div class='container printdatanew'>
+			<div class='row' id='badge'>
+				<div class='col-md-4'></div>
+				<div class='col-md-4' style='background: white;box-shadow: 0px 1px 5px #888888;'>
+					<div class='top'>
 					</div>
-					
+					<div class='qr-new-content' style='text-align:center;'>
+					</div>
+					<div class='bottom'>
+					</div>
+				</div>
+				<div class='col-md-4'></div>
+			</div>
+		</div>";
+			?>
+			
 						</div>
 					</div>
 				</div>				
@@ -213,55 +220,82 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 	</body>
 </html>-->
 
+		<script src="assets/js/instascan.min.js"></script>
 			
 			<?php
 			
       $print=$db->getRows('badge_print_setup',array());
     
-    echo "<div class='container printdata' >
-            <div class='row' id='badge'>
-			    <div class='col-md-6' style='background: white;box-shadow: 0px 1px 5px #888888;poisition:absolute;margin-left:-50px'>
-                <div class='top' style='margin-top:".($print[0]["top"]-1).$print[0]["metric"].";'>
+    echo "<div class='container printdata'>
+            <div class='row' id='badge'><div class='col-md-4'></div>
+			    <div class='col-md-4'>
+                <div class='top'  style='margin-top:".($print[0]["top"]-1).$print[0]["metric"].";'>
                 </div>
                 <div class='qr-content' style='text-align:center;'>
                 </div>
-                <div class='bottom' style='margin-top:".$print[0]["bottom"].$print[0]["metric"].";'>
+				<div class='bottom' style='margin-top:".$print[0]["bottom"].$print[0]["metric"].";'>
                 </div>
+				<div class='col-md-4' ></div>
                 </div>
             </div>
             </div>";
     ?>
 			
-			
-			
-			<script>
+	<script>
+			var scanner = new Instascan.Scanner({
+            video: document.getElementById('preview'),
+            scanPeriod: 5,
+            mirror: false
+        });
+        scanner.addListener('scan', function(qrCodeMessage) {
+            onScanSuccess(qrCodeMessage);
+        });
+
+        function onScanSuccess(qrCodeMessage) {
+			var delid = qrCodeMessage;
+                $.ajax({
+                    type:"post",
+                    url:"barcode/user_generate_view.php",
+                    data:{uid:delid,img_type:'<?=$print[0]["img_type"]; ?>'},
+                    success:function(data){
+                        $(".qr-new-content").html(data);
+                    }
+                });
+        }
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                var backCameraCheck = (cameras.length - 1);
+                if (cameras[backCameraCheck] != "undefined") {
+                    scanner.start(cameras[backCameraCheck]);
+                } else {
+                    alert('No Back camera found!');
+                }
+            } else {
+                console.error('No cameras found.');
+                alert('No cameras found.');
+            }
+        }).catch(function(e) {
+            console.error(e);
+            alert(e);
+        });
 			$(".footer").css('display','none');
 			$(".feature-section").css('display','none');
 			    	$(document).on("keyup","input[name='search']",function(){
                     var searchKey = $(this).val().toLowerCase();
                     var searchMode = $("#mode").val();//Auto  Manual
                     $("#mode").val('');
+					$("#submitBtn").html('');
                     setTimeout(function () {
                         if(searchKey.length>3)
                         {
                             $.ajax({
                                 type:"post",
-                                url:"process.php",
+                                url:"process_new.php",
                                 data:"searchKey="+searchKey+"&search=1"+"&searchMode="+searchMode,
                                 success:function(data){
-                                  $(".regData").html(data);
-                                  if(searchMode=='Auto'){
-                                  setTimeout(function(){
-                                      $(".print").trigger("click");
-                                      $("#mode").val(searchMode);
-                                   },1000);
-                                  }
-                                  else
-                                  {
-                                      $(".datarowcls").css('display','block');
-                                      $("#mode").val('Manual');
-                                  }
-                                  
+                                  	$(".regData").html(data);
+									$(".datarowcls").css('display','block');
+									$("#mode").val('Manual');
                                 }
                             });
                         }
@@ -333,14 +367,35 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
                     url:"barcode/generate.php",
                     data:{uid:$(this).data("id"),img_type:'<?=$print[0]["img_type"]; ?>'},
                     success:function(data){
-                       // $(".printdata").toggleClass("hide");
                         $(".qr-content").html(data);
-                        
                         setTimeout(function(){
                             window.print();
-                            $(".printdata").toggleClass("hide");
+        					self.close();
+                            $(".qr-content").html('');
                         },1000);
                         
+                    }
+                });
+            });
+
+            $(document).on("click",".userViewModal",function(){
+                var delid = $(this).data("id");
+                var name = $(this).data("name");
+				// $('#userDetailModalView').modal('show');
+				$('#search').val(name);
+				$('#search').html(name);
+     			$(".regData").html('');
+				var data = "<button type='' class='submitBtnModal btn btn-success' data-id='"+delid+"'>Submit</button>";
+				$("#submitBtn").html(data);
+            });
+            $(document).on("click",".submitBtnModal",function(){
+                var delid = $(this).data("id");
+                $.ajax({
+                    type:"post",
+                    url:"barcode/user_generate_view.php",
+                    data:{uid:$(this).data("id"),img_type:'<?=$print[0]["img_type"]; ?>'},
+                    success:function(data){
+                        $(".qr-new-content").html(data);
                     }
                 });
             });
@@ -362,23 +417,45 @@ media.addListener(function(mql) {
                       //$("#mode").val('');
                       $("a[data-id='"+delid+"']").removeClass("btn-success").addClass("btn-danger").text("Printed");
                       ajaxCall();
-                  }
+					}
+					location.reload();
                 }
 
             });
         }
         else
         {
-             //remove search tag value and search mode
-                      $("#search").val('');
+        	location.reload();
         }
     }
 });
 
+$(".mode").change(function(){
+	var mode= this.value;
+	if(mode == "Manual")
+	{
+		$(".manual_div").css("display","block");
+		$(".auto_div").css("display","none");
+	}
+	else
+	{
+		$(".manual_div").css("display","none");
+		$(".auto_div").css("display","block");
+	}
+});
+
 </script>
-			
-			
-			
+<script type="text/VBScript" language="VBScript">
+        Sub Print()
+               OLECMDID_PRINT = 6
+               OLECMDEXECOPT_DONTPROMPTUSER = 2
+               OLECMDEXECOPT_PROMPTUSER = 1
+               call WB.ExecWB(OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER,1)
+        End Sub
+        document.write "<object ID='WB' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>"
+</script>
+
+
 			<!-- Add Modal -->
 			<div class="modal fade" id="badge_edit" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered modal-lg" role="document" >

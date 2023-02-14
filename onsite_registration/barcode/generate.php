@@ -36,13 +36,14 @@ $reg_category=$record[0]['reg_category'];
     //     echo '<img src="'.$base_url.'qrcode/generate_QR.php?uid='.$uid.'" width="30%" height="30%" style="display: block; margin-left: auto; margin-right: auto; width: 30%;"/>
     //     <h6 style="color:#000;font-size:25px !important; text-align: center;font-weight:bold;">'.$record[0]['unique_id'].'</h6>';
     // }
-     if($reg_category!='Support Staff')
+
+
+    echo "<h3 class='' style='font-size:50px !important; color:#000; line-height:60px; text-align: center;'><b>".wordwrap(ucWords(strtoupper($record[0]['fullname'])), 25, "<br >",false)."</b></h3>";
+    if($reg_category!='Support Staff')
     {
         echo '<img src="'.$base_url.'qrcode/generate_QR.php?uid='.$uid.'" width="30%" height="30%" style="display: block; margin-left: auto; margin-right: auto; width: 30%;"/>';
     }
-
-    echo "<h3 class='' style='font-size:50px !important; color:#000; line-height:60px; text-align: center;'><b>".wordwrap(ucWords(strtoupper($record[0]['fullname'])), 25, "<br >",false)."</b></h3>";
-     echo "<p class='' style='font-size:30px !important;font-weight:bold;color:#000; text-align: center;'>".wordwrap(ucWords(strtoupper($record[0]['place'])), 30, "<br >",false)."</p>";
+    //  echo "<p class='' style='font-size:30px !important;font-weight:bold;color:#000; text-align: center;'>".wordwrap(ucWords(strtoupper($record[0]['place'])), 30, "<br >",false)."</p>";
 
     //  if($reg_category='Faculty')
     // {

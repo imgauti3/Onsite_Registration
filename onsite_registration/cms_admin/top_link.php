@@ -177,6 +177,27 @@ $pageUrl = basename($_SERVER['PHP_SELF']);
                                     <a <?php if ($pageUrl == 'approved_registration.php') { ?> class="active" <?php } ?> href="approved_registration.php" >Approved Registration</a>
                                 </li>
                             </ul>
+                            <li class="<?php if ($pageUrl == 'idcard_add.php' || $pageUrl == 'idcard_show.php') echo 'open';?>">
+                            <a href="javascript:;">
+                                <i class="fa fa-sliders"></i>
+                                <span class="title">ID-Card Images</span>
+                                <span class="arrow open"></span>
+                            </a>
+                                <ul class="sub-menu" <?php if ($pageUrl == 'idcard_add.php' || $pageUrl == 'idcard_show.php') { ?> style='display:block;' <?php } else { ?> style='display:none;' <?php } ?>>
+                                    <li>
+                                        <a <?php if ($pageUrl == 'idcard_add.php') { ?> class="active" <?php } ?> href="idcard_add.php" >Add</a>
+                                    </li>
+                                    <li>
+                                        <a <?php if ($pageUrl == 'idcard_show.php') { ?> class="active" <?php } ?> href="idcard_show.php" >Show</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- <li > 
+                                <a  href="icard.php">
+                                    <i class="fa fa-dashboard"></i>
+                                    <span class="title">ID-card Images</span>
+                                </a>
+                            </li> -->
                         </li>
                         
                         
