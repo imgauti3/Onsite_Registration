@@ -23,6 +23,26 @@ include_once("db.php");
 		<!-- Main CSS -->
 		<link rel="stylesheet" href="assets/css/style.css">
 	
+
+		<style>
+			.select-method-wrap .select-method{
+				width: 90px;
+    			height: 90px;
+				padding: 10px;
+				border-radius: 50%;
+				margin: 20px auto;
+				background-color: #FFFFFF;
+				color: #000000 !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+			.select-method-wrap input:checked ~ .select-method{
+				background-color: #FF9F36;
+				color: #FFFFFF;
+			}
+		</style>
 	</head>
 	<body>
 
@@ -120,15 +140,24 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 						   <?php }  ?>
 
 						   <div class="form-group">
-								<div class="row">
-									<div class="col-md-4"></div>
-									<div class="col-md-2 text-center">
-										<input type="radio" name="mode" class="mode" value="Manual" checked><span style="font-size: 22px;font-weight: bold;color: white;"> Manual</span>
+								<div class="row justify-content-center"> 
+									<div class="col-sm-auto text-center"> 
+										<div class="select-method-wrap">
+											<input type="radio" name="mode" class="mode" value="Manual" id="manualMethod" checked hidden>
+											<label for="manualMethod" class="mb-0 select-method"> 
+												<span style="font-size: 16px;font-weight: 500;"> Manual Check-in</span>
+											</label>
+										</div>
 									</div>
-									<div class="col-md-2 text-center">
-										<input type="radio" name="mode" class="mode" value="Auto"><span style="font-size: 22px;font-weight: bold;color: white;"> Auto</span>
-									</div>
-									<div class="col-md-4"></div>
+									<div class="col-sm-auto text-center">
+										 
+										<div class="select-method-wrap">
+											<input type="radio" name="mode" class="mode" value="Auto" id="autoMethod" hidden>
+											<label for="autoMethod" class="mb-0 select-method"> 
+												<span style="font-size: 16px;font-weight: 500;"> Auto Check-in</span>
+											</label>
+										</div>
+									</div> 
 								</div>
 							</div>
 						   
@@ -137,7 +166,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 								<div class="col-12 col-md-12 col-lg-6 manual_div" >
 									<!--<input type="button" class="btn btn-primary" value="Selected Print">-->
 									<div class="form-group">
-										<label>Scan the QR Code </label>
+										<label>Enter Your Name</label>
 										<div style="position: relative;">
 										<input type="text" class="form-control" id="search" name="search" placeholder="Search...." required="">
 										<div style="position: absolute;right: 5px;top: 5px;" id="submitBtn"></div>
@@ -151,6 +180,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 								<div class="col-12 col-md-12 col-lg-6 auto_div" style="display: none;" >
 									<!--<input type="button" class="btn btn-primary" value="Selected Print">-->
 									<div class="row">
+										<label>Scan the QR Code </label>
 										<video id="preview"></video>
 									</div>
 								</div>							

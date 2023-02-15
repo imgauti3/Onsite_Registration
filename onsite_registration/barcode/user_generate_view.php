@@ -11,7 +11,7 @@ $reg_category = $record[0]['reg_category'];
 
 $sqry = mysqli_query($connect, "select * from icard_image where category = '$reg_category'");
 $row = mysqli_fetch_row($sqry);
-$image = "";
+$image = "./assets/img/delegate.jpg";
 if (isset($row[1])) {
     $image = $base_url . $row[1];
 }
