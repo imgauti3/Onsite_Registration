@@ -143,7 +143,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 								<div class="row justify-content-center"> 
 									<div class="col-sm-auto text-center"> 
 										<div class="select-method-wrap">
-											<input type="radio" name="mode" class="mode" value="Manual" id="manualMethod" checked hidden>
+											<input type="radio" name="mode" class="mode" value="Manual" id="manualMethod"  hidden>
 											<label for="manualMethod" class="mb-0 select-method"> 
 												<span style="font-size: 16px;font-weight: 500;"> Manual Check-in</span>
 											</label>
@@ -152,7 +152,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 									<div class="col-sm-auto text-center">
 										 
 										<div class="select-method-wrap">
-											<input type="radio" name="mode" class="mode" value="Auto" id="autoMethod" hidden>
+											<input type="radio" name="mode" class="mode" value="Auto" id="autoMethod" hidden checked>
 											<label for="autoMethod" class="mb-0 select-method"> 
 												<span style="font-size: 16px;font-weight: 500;"> Auto Check-in</span>
 											</label>
@@ -163,7 +163,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 						   
 							<div class="row">
 							<div class="col-12 col-md-12 col-lg-3"></div>
-								<div class="col-12 col-md-12 col-lg-6 manual_div" >
+								<div class="col-12 col-md-12 col-lg-6 manual_div" style="display:none">
 									<!--<input type="button" class="btn btn-primary" value="Selected Print">-->
 									<div class="form-group">
 										<label>Enter Your Name</label>
@@ -178,11 +178,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 									</div>
 								</div>							
 								<div class="col-12 col-md-12 col-lg-6 auto_div" style="display: none;" >
-									<!--<input type="button" class="btn btn-primary" value="Selected Print">-->
-									<div class="row">
-										<label>Scan the QR Code </label>
-										<video id="preview"></video>
-									</div>
+									
 								</div>							
 							</div>
 							
@@ -240,6 +236,21 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
 			<!-- / -->
 			
 	<?php include_once('footer.php'); ?>
+<div class="modal fade" id="userModalPopupForQr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body printUserDetails">
+        
+      </div>
+    </div>
+  </div>
+</div>
 				<!-- jQuery -->
 		<!--	<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/popper.min.js"></script>
@@ -272,42 +283,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
     ?>
 			
 	<script>
-			var scanner = new Instascan.Scanner({
-            video: document.getElementById('preview'),
-            scanPeriod: 5,
-            mirror: false
-        });
-        scanner.addListener('scan', function(qrCodeMessage) {
-            onScanSuccess(qrCodeMessage);
-        });
-
-        function onScanSuccess(qrCodeMessage) {
-			var delid = qrCodeMessage;
-                $.ajax({
-                    type:"post",
-                    url:"barcode/user_generate_view.php",
-                    data:{uid:delid,img_type:'<?=$print[0]["img_type"]; ?>'},
-                    success:function(data){
-                        $(".qr-new-content").html(data);
-                    }
-                });
-        }
-        Instascan.Camera.getCameras().then(function(cameras) {
-            if (cameras.length > 0) {
-                var backCameraCheck = (cameras.length - 1);
-                if (cameras[backCameraCheck] != "undefined") {
-                    scanner.start(cameras[backCameraCheck]);
-                } else {
-                    alert('No Back camera found!');
-                }
-            } else {
-                console.error('No cameras found.');
-                alert('No cameras found.');
-            }
-        }).catch(function(e) {
-            console.error(e);
-            alert(e);
-        });
+		
 			$(".footer").css('display','none');
 			$(".feature-section").css('display','none');
 			    	$(document).on("keyup","input[name='search']",function(){
@@ -397,6 +373,7 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
                     url:"barcode/generate.php",
                     data:{uid:$(this).data("id"),img_type:'<?=$print[0]["img_type"]; ?>'},
                     success:function(data){
+						$("#userModalPopupForQr").modal("hide");
                         $(".qr-content").html(data);
                         setTimeout(function(){
                             window.print();
@@ -425,7 +402,9 @@ if (isset($_POST['btnSubmit']) && !empty($_POST['hiddenid'])) {
                     url:"barcode/user_generate_view.php",
                     data:{uid:$(this).data("id"),img_type:'<?=$print[0]["img_type"]; ?>'},
                     success:function(data){
-                        $(".qr-new-content").html(data);
+						$("#userModalPopupForQr").modal("show");
+						$(".printUserDetails").html(data);
+						$(".qr-content").html(data);
                     }
                 });
             });
