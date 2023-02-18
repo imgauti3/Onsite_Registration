@@ -45,6 +45,7 @@ include_once("db.php");
 		</style>
 	</head>
 	<body>
+	<canvas id="canvas"></canvas>
 
 		<!-- Main Wrapper -->
 		<div class="main-wrapper">
@@ -604,6 +605,7 @@ Sub Print()
 End Sub
 document.write "<object ID='WB' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>"
 </script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <!-- scanner script -->
 <script>
 const video = document.createElement('video');
