@@ -454,15 +454,6 @@ $(".mode").change(function(){
 });
 
 </script>
-<script type="text/VBScript" language="VBScript">
-        Sub Print()
-               OLECMDID_PRINT = 6
-               OLECMDEXECOPT_DONTPROMPTUSER = 2
-               OLECMDEXECOPT_PROMPTUSER = 1
-               call WB.ExecWB(OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER,1)
-        End Sub
-        document.write "<object ID='WB' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>"
-</script>
 
 
 			<!-- Add Modal -->
@@ -613,3 +604,44 @@ Sub Print()
 End Sub
 document.write "<object ID='WB' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>"
 </script>
+<!-- scanner script -->
+<script>
+const video = document.createElement('video');
+const canvasElement = document.getElementById('canvas');
+const canvas = canvasElement.getContext('2d');
+let scanning = false;
+
+navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+    .then(function (stream) {
+        video.srcObject = stream;
+        video.setAttribute('playsinline', true); // required to tell iOS safari we don't want fullscreen
+        video.play();
+        requestAnimationFrame(tick);
+    });
+
+function tick() {
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvasElement.hidden = false;
+        canvasElement.height = video.videoHeight;
+        canvasElement.width = video.videoWidth;
+        canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+        const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: "dontInvert",
+        });
+        if (code) {
+            console.log('QR Code detected: ', code.data);
+            handleQRCode(code.data);
+        }
+    }
+    if (!scanning) {
+        requestAnimationFrame(tick);
+    }
+}
+
+function handleQRCode(data) {
+	alert(data);
+    // Do something with the QR code data, such as submitting it to a server via AJAX
+}
+</script>
+<!-- scanner script -->
