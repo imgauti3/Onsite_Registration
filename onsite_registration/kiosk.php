@@ -428,9 +428,10 @@ media.addListener(function(mql) {
                       $("a[data-id='"+delid+"']").removeClass("btn-success").addClass("btn-danger").text("Printed");
                       ajaxCall();
 					}
-					location.reload();
+					// location.reload();
+					window.location.href = 'thankyoupage.php?uniquId='+delid;
                 }
-
+				
             });
         }
         else
